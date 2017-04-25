@@ -1,7 +1,10 @@
 package com.micromata.webengineering.demo.post;
 
+import org.apache.tomcat.jni.Time;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,14 +13,17 @@ import java.util.List;
  */
 @Service
 public class PostService {
-    private List<String> posts = new LinkedList<>();
+    private List<Post> posts = new LinkedList<>();
+    private Calendar cal;
+    private SimpleDateFormat sdf;
+
 
     /**
      * Retrieve the list of all posts.
      *
      * @return post list
      */
-    public List<String> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
@@ -28,6 +34,8 @@ public class PostService {
      * @param title the post title.
      */
     public void addPost(String title) {
-        posts.add(title);
+        sdf = new SimpleDateFormat("HH:mm:ss");
+        cal =  Calendar.getInstance();
+        posts.add(new Post(title, sdf.format(cal.getTime())));
     }
 }
