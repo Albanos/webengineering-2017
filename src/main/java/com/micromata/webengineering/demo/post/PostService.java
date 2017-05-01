@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import java.util.List;
 @Service
 public class PostService {
     private List<Post> posts = new LinkedList<>();
-    private Calendar cal;
-    private SimpleDateFormat sdf;
+    private static int id=0;
 
 
     /**
@@ -34,8 +34,11 @@ public class PostService {
      * @param title the post title.
      */
     public void addPost(String title) {
-        sdf = new SimpleDateFormat("HH:mm:ss");
-        cal =  Calendar.getInstance();
-        posts.add(new Post(title, sdf.format(cal.getTime())));
+        //sdf = new SimpleDateFormat("HH:mm:ss");
+        //cal =  Calendar.getInstance();
+
+
+        //posts.add(new Post(title, sdf.format(cal.getTime()),id++));
+        posts.add(new Post(title, new Date().toString(),id++));
     }
 }
