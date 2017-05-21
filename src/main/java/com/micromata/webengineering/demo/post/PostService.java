@@ -39,6 +39,23 @@ public class PostService {
 
 
         //posts.add(new Post(title, sdf.format(cal.getTime()),id++));
-        posts.add(new Post(title, new Date().toString(),id++));
+        posts.add(new Post(title));
+    }
+
+    public Post getPost(Long id){
+        for(Post p : posts){
+            if(p.getId() == id){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void deletePost(Long id){
+        for(Post p : posts) {
+            if (p.getId() == id) {
+                posts.remove(p);
+            }
+        }
     }
 }

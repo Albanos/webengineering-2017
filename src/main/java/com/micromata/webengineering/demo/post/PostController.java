@@ -20,36 +20,30 @@ public class PostController {
         return postService.getPosts();
     }
 
+
     @RequestMapping(value = "/post/add")
     public void addPost(@RequestParam("title") String title) {
         postService.addPost(title);
     }
 
-    //Funktioniert irgendwie nicht
-    @RequestMapping(value = "/post/add/POST", method = RequestMethod.POST)
-    @ResponseBody
-    public void addPostWithPOST( String title){ postService.addPost(title);}
+
+    /* --> Muss noch geklärt werden!!!
+    @RequestMapping(value = "/post", method = RequestMethod.POST)
+    public void addPost(@RequestBody Post post) {
+        postService.addPost(post);
+    }
+    */
 
     //Rückgabe eines bestimmten Posts aus der Liste
-    @RequestMapping("/post/id/{id}")
-    public Post getPostByID(@PathVariable int id){
-        for (Post p : postService.getPosts()) {
-            if(p.getId() == id){
-                return p;
-            }
-        }
-        //Gibt es diesen Post nicht, gebe null zurück
-        return null;
+    @RequestMapping("/post/{id}")
+    public Post getPostByID(@PathVariable Long id){
+        return postService.getPost(id);
     }
 
     //Loeschen eines bestimmten Posts
     @RequestMapping("post/delete/{id}")
-    public void deletePostByID(@PathVariable int id){
-        for (Post p : postService.getPosts()) {
-            if(p.getId() == id){
-                postService.getPosts().remove(p);
-            }
-        }
+    public void deletePostByID(@PathVariable Long id){
+        postService.deletePost(id);
     }
 
 
