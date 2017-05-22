@@ -6,6 +6,7 @@ import org.apache.tomcat.jni.Time;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -33,8 +34,11 @@ public class Post {
 
     public Post(String title){
         this.title = title;
-        time_Stamp = new Date();
+        //time_Stamp = new Date();
         id=nextId.getAndIncrement();
+    }
+    public Post(){
+
     }
     public void setTitle(String title) {
         this.title = title;
@@ -57,5 +61,10 @@ public class Post {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @PrePersist
+    public void prePersistent(){
+        time_Stamp = new Date();
     }
 }
