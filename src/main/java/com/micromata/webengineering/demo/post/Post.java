@@ -3,17 +3,26 @@ package com.micromata.webengineering.demo.post;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.tomcat.jni.Time;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Luan Hajzeraj on 25.04.2017.
  */
+
+//@Entity: Sagt aus, dass Post eine Entinität in Datenbank ist, also in der Datenbank persistieren
+@Entity
 public class Post {
 
     private static AtomicLong nextId = new AtomicLong();
 
-
+    //@ID: Sorgt dafür, dass ID primärschlüssel in Datenbank wird
+    //@GeneratedValue: Sorgt dafür, dass ID eigenschaften eines primärschlüssels hat, also bspw. eindeutig ist
+    @Id
+    @GeneratedValue
     //MERKE: getter und setter müssen da sein, damit Spring dies verarbeiten und anzeien kann...
     private Long id;
 

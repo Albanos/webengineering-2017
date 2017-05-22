@@ -1,6 +1,7 @@
 package com.micromata.webengineering.demo.post;
 
 import org.apache.tomcat.jni.Time;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -14,8 +15,11 @@ import java.util.List;
  */
 @Service
 public class PostService {
-    private List<Post> posts = new LinkedList<>();
-    private static int id=0;
+    //Wir wollen nun persistiert speichern, also keine Liste mehr
+    //private List<Post> posts = new LinkedList<>();
+
+    @Autowired
+    private PostRepository repository;
 
 
     /**
@@ -23,39 +27,46 @@ public class PostService {
      *
      * @return post list
      */
-    public List<Post> getPosts() {
-        return posts;
+    public Iterable<Post> getPosts() {
+        return repository.findAll();
     }
 
 
     /**
      * Add a new post.
      *
-     * @param title the post title.
+     * @param post the post title.
      */
-    public void addPost(String title) {
+    public void addPost(Post post) {
         //sdf = new SimpleDateFormat("HH:mm:ss");
         //cal =  Calendar.getInstance();
 
 
         //posts.add(new Post(title, sdf.format(cal.getTime()),id++));
-        posts.add(new Post(title));
+        //posts.add(new Post(title));
+        repository.save(post);
     }
 
     public Post getPost(Long id){
+        /*
         for(Post p : posts){
             if(p.getId() == id){
                 return p;
             }
         }
         return null;
+        */
+        return repository.findOne(id);
     }
 
     public void deletePost(Long id){
+        /*
         for(Post p : posts) {
             if (p.getId() == id) {
                 posts.remove(p);
             }
         }
+        */
+        repository.delete(id);
     }
 }
