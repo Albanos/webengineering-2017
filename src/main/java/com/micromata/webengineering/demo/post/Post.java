@@ -1,10 +1,13 @@
 package com.micromata.webengineering.demo.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.micromata.webengineering.demo.user.User;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.tomcat.jni.Time;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -19,9 +22,9 @@ public class Post {
 
     //@ID: Sorgt dafür, dass ID primärschlüssel in Datenbank wird
     //@GeneratedValue: Sorgt dafür, dass ID eigenschaften eines primärschlüssels hat, also bspw. eindeutig ist
+    //MERKE: getter und setter müssen da sein, damit Spring dies verarbeiten und anzeien kann...
     @Id
     @GeneratedValue
-    //MERKE: getter und setter müssen da sein, damit Spring dies verarbeiten und anzeien kann...
     private Long id;
 
 
@@ -33,6 +36,11 @@ public class Post {
     //Ausgabe in Milli-sekunden, von 1970 an
     private Date time_Stamp;
 
+    //Jetzt hat jeder Post einen User. Die Annotation sorgt dafür, dass jeder Post GENAU einen Author besitzt.
+    //Dies ist nötig, da ja bspw. nur der Author eines Posts diesen löschen und ändern können soll
+    @ManyToOne(optional = false)
+    private User author;
+
     public Post(String title){
         this.title = title;
         //time_Stamp = new Date();
@@ -41,6 +49,8 @@ public class Post {
     public Post(){
 
     }
+
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -69,5 +79,13 @@ public class Post {
     @PrePersist
     public void prePersistent(){
         time_Stamp = new Date();
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

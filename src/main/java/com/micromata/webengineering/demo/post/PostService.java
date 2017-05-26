@@ -1,5 +1,7 @@
 package com.micromata.webengineering.demo.post;
 
+import com.micromata.webengineering.demo.user.User;
+import com.micromata.webengineering.demo.user.UserRepository;
 import org.apache.tomcat.jni.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class PostService {
     @Autowired
     private PostRepository repository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     /**
      * Retrieve the list of all posts.
@@ -38,12 +43,12 @@ public class PostService {
      * @param post the post title.
      */
     public void addPost(Post post) {
-        //sdf = new SimpleDateFormat("HH:mm:ss");
-        //cal =  Calendar.getInstance();
 
+        //Wir suchen den User (im moment ja nur einer vorhanden) und adden ihn als Author zum Post. Erst danach wird
+        //persistiert
+        User author = userRepository.findByEmail("l.hajzeraj@gmail.com");
+        post.setAuthor(author);
 
-        //posts.add(new Post(title, sdf.format(cal.getTime()),id++));
-        //posts.add(new Post(title));
         repository.save(post);
     }
 
