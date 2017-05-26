@@ -3,10 +3,7 @@ package com.micromata.webengineering.demo.post;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.apache.tomcat.jni.Time;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -27,6 +24,10 @@ public class Post {
     //MERKE: getter und setter müssen da sein, damit Spring dies verarbeiten und anzeien kann...
     private Long id;
 
+
+    //Standardwert für die Spalte "Titel" in Datenbank ist 255. Mit der Annotation @Column und Parameter length
+    //erhöhen wir diesen Wert auf 1024
+    @Column(length = 1024)
     private String title;
 
     //Ausgabe in Milli-sekunden, von 1970 an
@@ -63,6 +64,8 @@ public class Post {
         this.id = id;
     }
 
+    //Sobald wir persistieren wollen, setzen wir das Datum (ist ansichtssache, man könnte das Datum auch beim anlegen setzen)
+    //Durch die Annotation @PrePersist wird die darunter liegende Methode immer beim abspeichern aufgerufen
     @PrePersist
     public void prePersistent(){
         time_Stamp = new Date();

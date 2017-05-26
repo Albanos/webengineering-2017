@@ -2,6 +2,7 @@ package com.micromata.webengineering.demo.post;
 
 import com.micromata.webengineering.demo.util.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/post")
 public class PostController {
+
+    //Kapselung der URL, wegen besserem Stil
     public static class PostCreated{
         public String url;
     }
@@ -42,6 +45,15 @@ public class PostController {
     //Wir müssen den Inhalt über ein Tool übergeben, aber: der Inhalt muss im JSON-Format sein!!!!
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> addPost(@RequestBody Post post) {
+
+
+        //Validate Title: Wenn ein Titel eingegeben wird, der einen längeren Titel als 1024 Zeichen hat, sende ein Bad-Request zurück
+        //da nicht gewollt...
+        if(post.getTitle() != null && post.getTitle().length() > 1024){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
         postService.addPost(post);
 
         PostCreated postCreated = new PostCreated();
