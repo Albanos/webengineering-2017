@@ -21,7 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @SpringBootApplication
-public class Main implements CommandLineRunner{
+public class Main {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
@@ -42,6 +42,8 @@ public class Main implements CommandLineRunner{
                 .build();
     }
 
+    //War nur eine Übergangslösung, jetzt nutzen wir die data-h2.sql-Datei unter ressources, zum befüllen
+    /*
     @Autowired
     private UserRepository userRepository;
 
@@ -60,7 +62,7 @@ public class Main implements CommandLineRunner{
         user.setEmail("l.hajzeraj@gmail.com");
         user.setPassword("test");
         userRepository.save(user);
-        LOG.info("User l.hajzeraj@gamil.com created");
+        LOG.info("User l.hajzeraj@gmail.com created");
     }
-
+    */
 }

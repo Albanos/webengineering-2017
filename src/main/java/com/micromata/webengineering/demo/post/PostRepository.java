@@ -17,6 +17,7 @@ public interface PostRepository extends CrudRepository<Post, Long> {
 
     //ALLG.: Wenn man die Annotation @Query verwendet, wird die Query vor dem Methodenaufruf ausgeführt. Hier würde sie uns
     //also alle Posts zurückgeben, aber nach dem Datum sortiert
-    //@Query("SELECT p from Post p ORDER BY p.createdAt DESC")
+    @Query("SELECT p from Post p ORDER BY p.createdAt DESC")
+    //@Query("SELECT new Post(p.id, p.author, p.title, p.createdAt) from Post p ORDER BY p.createdAt DESC")
     List<Post> findAll();
 }

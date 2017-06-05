@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
  * HTTP endpoint for a post-related HTTP requests.
  */
 @RestController
-@RequestMapping("/post")
 public class PostController {
 
     //Kapselung der URL, wegen besserem Stil
@@ -24,26 +23,14 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value= "/api/post", method = RequestMethod.GET)
     public Iterable<Post> getPostList() {
         return postService.getPosts();
     }
 
 
-    /*
-    @RequestMapping(value = "/post/add")
-    public void addPost(@RequestParam("title") String title) {
-
-        postService.addPost(new Post(title));
-
-        PostCreated postCreated = new PostCreated();
-        //postCreated.url= adressService.getServerURL() + "/api/post" + post.getId();
-    }
-    */
-
-
     //Wir müssen den Inhalt über ein Tool übergeben, aber: der Inhalt muss im JSON-Format sein!!!!
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value= "/api/post", method = RequestMethod.POST)
     public ResponseEntity<Object> addPost(@RequestBody Post post) {
 
 
@@ -71,9 +58,14 @@ public class PostController {
     }
 
     //Loeschen eines bestimmten Posts
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/post/{id}", method = RequestMethod.DELETE)
     public void deletePostByID(@PathVariable Long id){
         postService.deletePost(id);
+    }
+
+    @RequestMapping(value = "/api/post/{id}", method = RequestMethod.GET)
+    public Post getPost(@PathVariable Long id) {
+        return postService.getPost(id);
     }
 
 
