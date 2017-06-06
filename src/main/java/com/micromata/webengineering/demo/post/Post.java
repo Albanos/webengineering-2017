@@ -1,6 +1,7 @@
 package com.micromata.webengineering.demo.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.micromata.webengineering.demo.comment.Comment;
 import com.micromata.webengineering.demo.user.User;
 import com.sun.xml.internal.bind.v2.model.core.ID;
@@ -24,9 +25,12 @@ public class Post {
 
     //@ID: Sorgt dafür, dass ID primärschlüssel in Datenbank wird
     //@GeneratedValue: Sorgt dafür, dass ID eigenschaften eines primärschlüssels hat, also bspw. eindeutig ist
+    //@JSONIgnore: Zeig mir die ID nicht an! Liefere sie zurück, aber zeige sie nicht, damit sie nicht überschrieben werden kann
+
     //MERKE: getter und setter müssen da sein, damit Spring dies verarbeiten und anzeien kann...
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
 
 
@@ -45,7 +49,7 @@ public class Post {
 
     //Hinzufügen von Kommentaren
     //Ein Post gehört zu vielen Kommentaren
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
     public List<Comment> getComments() {
@@ -66,12 +70,12 @@ public class Post {
 
     public Post(){
         // Default constructor for JPA.
-        //comments = new LinkedList<>();
+        comments = new LinkedList<>();
 
     }
 
     /**
-     * Constructor for Post's CrudRepository (findAll).
+     * Constructor for Post's CrudRepository (findAll). Den benötigen wir, wenn wir Posts ohne Kommentare anzeigen wollen
      *
      * @param author
      * @param title
@@ -83,7 +87,11 @@ public class Post {
         this.author = author;
         this.title = title;
         this.createdAt = createdAt;
-        //comments = new LinkedList<>();
+        /*
+        Wenn ich alle Posts zurück gebe, will ich kein "null" bei den Kommentaren haben (werden ja ignoriert,
+        bei Anzeige aller Posts). Deshalb besser eine leere Liste anlegen, so sind Kommentare !=null
+        */
+        comments = new LinkedList<>();
     }
 
 
@@ -96,23 +104,32 @@ public class Post {
         return title;
     }
 
-    //MERKE: Es muss offensichtlich ein geter existieren, sonst wird der TimeStamp nicht mit ausgegeben!
-    //scheinbar macht das Spring im Hintergrund...
+    /*
+    MERKE: Es muss offensichtlich ein geter existieren, sonst wird der TimeStamp nicht mit ausgegeben!
+    scheinbar macht das Spring im Hintergrund...
+    */
     public Date getCreatedAt() {
         return createdAt;
     }
 
 
+    //Liefere mir schon die ID zurück
+    @JsonProperty
     public Long getId() {
         return id;
     }
 
+
+    //Zeig mir die ID aber eben nicht an! Schutz vor Änderung durch Benutzer, denn dieser kennt die ID's dann nicht
+    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
 
-    //Sobald wir persistieren wollen, setzen wir das Datum (ist ansichtssache, man könnte das Datum auch beim anlegen setzen)
-    //Durch die Annotation @PrePersist wird die darunter liegende Methode immer beim abspeichern aufgerufen
+    /*
+    Sobald wir persistieren wollen, setzen wir das Datum (ist ansichtssache, man könnte das Datum auch beim anlegen setzen)
+    Durch die Annotation @PrePersist wird die darunter liegende Methode immer beim abspeichern aufgerufen
+    */
     @PrePersist
     public void prePersistent(){
         createdAt = new Date();

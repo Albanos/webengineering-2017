@@ -1,5 +1,6 @@
 package com.micromata.webengineering.demo.post;
 
+import com.micromata.webengineering.demo.user.UserService;
 import com.micromata.webengineering.demo.util.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value= "/api/post", method = RequestMethod.GET)
     public Iterable<Post> getPostList() {
         return postService.getPosts();
@@ -33,6 +37,10 @@ public class PostController {
     @RequestMapping(value= "/api/post", method = RequestMethod.POST)
     public ResponseEntity<Object> addPost(@RequestBody Post post) {
 
+        //Wenn aktueller Nutzer ncht authorisiert ist, kann er keinen neuen Post anlegen!
+        if (userService.isAnonymous()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
 
         //Validate Title: Wenn ein Titel eingegeben wird, der einen längeren Titel als 1024 Zeichen hat, sende ein Bad-Request zurück
         //da nicht gewollt...

@@ -48,8 +48,12 @@ public class JWTFilter extends GenericFilterBean {
 
         //Über den Bearer-Teil bekommen wir das JWT-Token und vergleichen es
         if(!StringUtils.startsWith(auth,"Bearer")){
-            LOG.warn("No authorization token submitted");
-            httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+            //Wenn Nutzer nicht authentifiziert ist, kann er zumindest alle Posts sehen
+
+            // Allow requests without a token.
+            LOG.debug("No token provided, setting to anonymous user");
+            userService.setAnonymous();
+            filterChain.doFilter(request, response);
             return;
         }
 

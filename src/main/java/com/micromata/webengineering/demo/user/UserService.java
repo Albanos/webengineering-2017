@@ -76,4 +76,27 @@ public class UserService {
         LOG.debug("Retrieving user from database. user={}", email);
         return userRepository.findByEmailAndPassword(email, password);
     }
+
+
+    //ANONYME NUTZER:
+    //Damit ist es möglich, bestimmte Operationen, wie bspw. alle Posts zu sehen, auszuführen, auch wenn man nicht
+    //authentifiziert ist. Der Anonyme Nutzer ist ein Nutzer mit Primär-Schlüssel von -1
+    //Die Datenbank vergibt automatisch Primär-schlüssel, -1 wird nie dabei sein
+
+    /**
+     * Sets the current user to anonymous.
+     */
+    public void setAnonymous() {
+        setCurrentUser(-1L, "<anonymous>");
+    }
+
+
+    /**
+     * Check if the current user is not authenticated.
+     *
+     * @return true if the user is not authenticated.
+     */
+    public boolean isAnonymous() {
+        return getCurrentUser().getId() == -1L;
+    }
 }
