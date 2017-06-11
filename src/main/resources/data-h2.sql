@@ -2,20 +2,21 @@
 
 
 --Loesche zunaechst alles aus den Tabellen Post und USer_
-DELETE FROM POST;
-DELETE FROM USER_;
-DELETE FROM POST_COMMENTS;
-DELETE FROM COMMENT;
+--DELETE FROM POST;
+--DELETE FROM USER_;
+--DELETE FROM POST_COMMENTS;
+--DELETE FROM COMMENT;
+
 
 --WICHTIG: Entgegen der Syntax as dem Video darf bei Values NICHT das attribut davor stehen, sondern eben nur die reinen Werte!!
 --Fuege neue User hinzu
 --MERKE: Die Hash-Werte wurden mit hashgenerator.de generiert. Andere Tools lieferten kein sha512...
 --Passwort setzt sich wie folgt zusammen:
---luan: HalloLiebeBunteSchoeneWeiteWelt + test --> Zu hash generiert: test=pw, HalloLiebe... = salt
---Rovi: HiTest Hallo liebe bunte schoene Welt --> Zu Hash generiert: test2=pw, HalloLiebe... = salt
+--luan: <salt-hash-Wert>test, ohne leerzeichen, hintereinander
+--Rovi: <salt-hash-Wert>test2, ohne leerzeichen, hintereinander
 INSERT INTO USER_ (ID, EMAIL, PASSWORD) VALUES
 (1,'luan','af68aaf7efd626d4487944e7fd745da3086cbda6d286f845976f2489ec164256ddddf4ca9b712d3e355ff062414e9a7a95cf2584483ce2631d312a030ca4a0ff'),
-(2,'Rovi','bd303ac1403fc469e8ec8c4b052fed48ba536a815faf5a50a3c6b7c804a4860d81fa276c5a673ef0c6cb14e6ca45bffbe5214cc5a1ecd4a0bbee3a22bd48031b');
+(2,'Rovi','d88e24c23234217b68b209559ffb1b654aadec940298c784d30cc44ba268ebd99b826794facd9ad4137abcac8896e9ee552dae2c6b2749b907dae6156fdf6f7e');
 
 --Fuege neue Posts hinzu
 INSERT INTO POST (id, title, CREATED_AT, AUTHOR_ID) VALUES
