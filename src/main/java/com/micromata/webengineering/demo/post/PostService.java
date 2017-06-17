@@ -4,17 +4,10 @@ import com.micromata.webengineering.demo.comment.Comment;
 import com.micromata.webengineering.demo.user.User;
 import com.micromata.webengineering.demo.user.UserRepository;
 import com.micromata.webengineering.demo.user.UserService;
-import org.apache.tomcat.jni.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Handle all CRUD operations for posts.

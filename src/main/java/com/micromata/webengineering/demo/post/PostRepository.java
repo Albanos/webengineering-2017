@@ -1,6 +1,7 @@
 package com.micromata.webengineering.demo.post;
 
 import com.micromata.webengineering.demo.comment.Comment;
+import com.micromata.webengineering.demo.post.Post;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

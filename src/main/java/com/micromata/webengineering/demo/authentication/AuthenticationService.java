@@ -86,6 +86,7 @@ public class AuthenticationService {
     //MERKE: Methode liefert wirklich "salt + password" zurueck, also salt, dann leerzeichen, dann '+', dann leerzeichen
     //und dann das Passwort!!!
     private String hashPassword(String password) {
+
         return DigestUtils.sha512Hex(salt + password);
     }
 }

@@ -2,10 +2,12 @@
 
 
 --Loesche zunaechst alles aus den Tabellen Post und USer_
---DELETE FROM POST;
---DELETE FROM USER_;
---DELETE FROM POST_COMMENTS;
---DELETE FROM COMMENT;
+DELETE FROM POST_COMMENTS;
+DELETE FROM COMMENT;
+DELETE FROM POST;
+DELETE FROM USER_;
+
+
 
 
 --WICHTIG: Entgegen der Syntax as dem Video darf bei Values NICHT das attribut davor stehen, sondern eben nur die reinen Werte!!
