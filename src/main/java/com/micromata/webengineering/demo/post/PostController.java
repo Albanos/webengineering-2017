@@ -59,12 +59,6 @@ public class PostController {
     }
 
 
-    //Rückgabe eines bestimmten Posts aus der Liste
-    @RequestMapping("/{id}")
-    public Post getPostByID(@PathVariable Long id){
-        return postService.getPost(id);
-    }
-
     //Loeschen eines bestimmten Posts
     @RequestMapping(value = "/api/post/{id}", method = RequestMethod.DELETE)
     public void deletePostByID(@PathVariable Long id){

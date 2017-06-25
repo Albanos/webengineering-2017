@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Title</title>
 </head>
 <body>
-    <h1>hello</h1>
+
+    <!--Hier erfolgt die Ersetzung durch index.js, mithilfe von React
+     Betrachte dazu auch das generierte HTML-Doc über die Entwickler-tools vom Chrome-browser,
+     dort ist die Ersetzung zu sehen-->
+    <div id="root"></div>
+
+    <!-- Einfügen eines Pics -->
+    <!--
+    <img src="assets/dog.png" width="250" alt="a dog">
+    <hr/>
+    -->
+
+
+    <!--Wir fügen zunächst alle notwendigen Libs direkt ein, also bei jedem Start laden wir sie aus dem Netz -->
+    <!--
+    <script src="https://fb.me/react-15.0.1.js"></script>
+    <script src="https://fb.me/react-dom-15.0.1.js"></script>
+    -->
+
+    <!--babel war für das Bauen/generieren/konvertieren von EcmaScript6 (also JS6) & JSX (JS-SyntaxErweiterung)
+    in eine "normale" JS-Datei zuständig-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script> -->
+
+    <!-- Hier auch nochmal die Typ-Definition: babel baut aus dem JSX (JS-Erweiterung; Mischung aus
+    JS und HTML, in einer Datei) ein JS-File, welches der Browser versteht-->
+    <!--<script src="index.js" type="text/babel"></script> -->
+    <script src="bundle.js"></script>
+
 </body>
 </html>

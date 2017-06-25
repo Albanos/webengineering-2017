@@ -2,3 +2,10 @@
 *.iml
 .idea/
 target
+
+# Generated webpack and npm files.
+src/main/frontend/node_modules
+src/main/frontend/bundle.*
+
+src/main/resources/public
+src/main/frontend/node
