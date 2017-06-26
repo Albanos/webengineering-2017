@@ -59,6 +59,7 @@ public class PostService {
             comment.setAuthor(userService.getCurrentUser());
         }
 
+        post.setAuthor(userService.getCurrentUser());
         repository.save(post);
     }
 

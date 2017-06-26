@@ -20,8 +20,16 @@ import React from "react";
                 });
             }
 
+            /*
+            Wir bauen quasi unseren Counter um das Tag herum. Somit funktioniert der Click-listener
+            auf der ganze Zeile des Textes...
+             */
             render() {
-                return <span onClick={this.onClick.bind(this)}>{this.state.counter}</span>
+                return (
+                    <div onClick={this.onClick.bind(this)}>
+                        {this.props.children}
+                        ({this.state.counter})
+                    </div>)
             }
         }
 

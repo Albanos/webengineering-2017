@@ -92,7 +92,7 @@ public class PostServiceTest {
 
         Post post = new Post();
         post.setTitle(uuid);
-        post.setAuthor(userService.getCurrentUser());
+        //post.setAuthor(userService.getCurrentUser());
 
         assertNull(post.getId());
         postService.addPost(post);

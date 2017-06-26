@@ -74,8 +74,8 @@ public class IntegrationTest {
         //Aus irgendeinem Grund wird der Author für einen Post nicht direkt gesetzt, weshalb die folgenden
         //beiden Zeilen immer nötig sind, abweichend vom Muster der Vorlesung: Author muss beim Post immer gesetzt
         //werden
-        userService.setCurrentUser(1L,"luan");
-        post.setAuthor(userService.getCurrentUser());
+        //userService.setCurrentUser(1L,"luan");
+        //post.setAuthor(userService.getCurrentUser());
 
         HttpEntity<Post> entity = new HttpEntity<>(post, headers);
         ResponseEntity<Map> response = rest.postForEntity(getPostURL(), entity, Map.class);
